@@ -7,7 +7,10 @@ const requestHandler = (req, res) => {
 		res.write('<html><head><title>Assigment-01</title></head>')
 		res.write('<body><h1>Hello!! Welcome to my home page!!</h1>')
 		res.write(
-			'<form action="/create-user" method="POST"><input type="text" name="create-user"/><button type="submit">Create</button></form>'
+			'<form action="/create-user" method="POST"><input type="text" name="create-user"/>'
+		)
+		res.write(
+			'<button type="submit">Create</button></form>'
 		)
 		res.write('</body></html>')
 		return res.end()
@@ -26,7 +29,6 @@ const requestHandler = (req, res) => {
 		req.on('data', chunk => {
 			body.push(chunk)
 		})
-
 		return req.on('end', () => {
 			const parsedBody = Buffer.concat(body).toString()
 			const user = parsedBody.split("=")[1]
