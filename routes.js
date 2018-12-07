@@ -1,43 +1,43 @@
-const fs = require('fs');
-
 const requestHandler = (req, res) => {
 	const url = req.url;
-	const method = req.method
+	const method = req.method;
 
 	if (url === '/') {
-		res.setHeader('Content-type', 'text/html');
-		res.write('<html>');
-		res.write('<head><title>Enter message</title></head>');
+		res.setHeader('Content-type', 'text/html')
+		res.write('<html><head><title>Assigment-01</title></head>')
+		res.write('<body><h1>Hello!! Welcome to my home page!!</h1>')
 		res.write(
-			'<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</button></form></body>'
-		);
-		res.write('</html>');
-		return res.end();
+			'<form action="/create-user" method="POST"><input type="text" name="create-user"/><button type="submit">Create</button></form>'
+		)
+		res.write('</body></html>')
+		return res.end()
 	}
-	if (url === '/message' && method === 'POST') {
-		const body = [];
-		// Add a listener
+	if (url === '/users') {
+		res.setHeader('Content-type', 'text/html')
+		res.write('<html><head><title>Assigment-01/users</title></head>')
+		res.write(
+			'<body><h1>Here are some users</h1><ul><li>Juan</li><li>Carlos</li><li>Mayi</li></ul></body></html>'
+		)
+		return res.end()
+	}
+	if (url === '/create-user' && method === 'POST') {
+		const body = []
+
 		req.on('data', chunk => {
 			body.push(chunk)
-		});
+		})
 
 		return req.on('end', () => {
-			// use a buffer
-			const parsedBody = Buffer.concat(body).toString();
-			const message = parsedBody.split('=')[1];
-			fs.writeFile('message.txt', message, err => {
-				res.statusCode = 302;
-				res.setHeader('Location', '/');
-				return res.end();
-			})
+			const parsedBody = Buffer.concat(body).toString()
+			const user = parsedBody.split("=")[1]
+			console.log(user);
+			res.setHeader('Content-type', 'text/html')
+			res.write('<html><head><title>Assigment-01</title></head>')
+			res.write(`<body><h1>Hello!! ${user}, Welcome to my home page!!</h1>`)
+			res.write('</body></html>')
+			return res.end()
 		})
 	}
-	res.setHeader('Content-type', 'text/html');
-	res.write('<html>');
-	res.write('<head><title>My First Page</title></head>');
-	res.write(`<body><h1>Hola!!!!</h1></body>`);
-	res.write('</html>');
-	res.end();
 }
 
 module.exports = {
