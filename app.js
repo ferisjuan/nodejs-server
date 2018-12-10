@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // set templating engine as a global (plugin)
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 // local modules
