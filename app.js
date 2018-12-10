@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 // App definition
 const app = express();
 
+// set templating engine as a global (plugin)
+app.set('view engine', 'pug');
+app.set('views', 'views');
+
 // local modules
 const adminData = require('./routes/admin');
 const shopData = require('./routes/shop');
@@ -19,7 +23,7 @@ app.use('/admin', adminData.routes);
 app.use(shopData.routes);
 
 app.use((req, res, next) => {
-	res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+	res.status(404).render('404')
 })
 
 // set listener

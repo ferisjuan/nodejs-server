@@ -1,16 +1,16 @@
+// express
 const express = require('express');
-const path = require('path');
-
-const rootDir = require('../util/path');
-const adminData = require('./admin');
-
 const router = express.Router();
 
+// local modules
+const adminData = require('./admin');
+
+
 router.get('/', (req, res, next) => {
-	console.log(adminData.products);
+	const products = adminData.products;
 
 	// the join method construct the files system path so it can work in linux or in windows sistems
-	res.sendFile(path.join(rootDir, 'views', 'shop.html'));
+	res.render('shop', { products, docTitle: 'Shop' });
 })
 
 exports.routes = router;
