@@ -1,31 +1,15 @@
-// Node modules
 const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+const bodyparser = require('body-parser');
 
-// App definition
 const app = express();
 
-// set templating engine as a global (plugin)
+const router = require('./routes/router');
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-// local modules
-const adminData = require('./routes/admin');
-const shopData = require('./routes/shop');
+app.use(bodyparser.urlencoded({ extended: true }))
+app.use(router);
 
-// get body parser
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-// get routes
-app.use('/admin', adminData.routes);
-app.use(shopData.routes);
-
-app.use((req, res, next) => {
-	res.status(404).render('404', { pageTitle: "Not found" });
-})
-
-// set listener
 app.listen(3030);
-console.log('Listening at port 3030');
+console.log("listening at port 3030");
