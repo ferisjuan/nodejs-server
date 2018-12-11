@@ -23,9 +23,9 @@ app.use('/admin', adminData.routes);
 app.use(shopData.routes);
 
 app.use((req, res, next) => {
-	res.status(404).render('404', { pageTitle: "Not found" })
+	res.status(404).render('404', { pageTitle: "Not found" });
 })
 
 // set listener
-app.listen(3000)
-console.log('Listening at port 3000');
+app.listen(3030);
+console.log('Listening at port 3030');
