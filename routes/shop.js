@@ -2,15 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
-// local modules
-const adminData = require('./admin');
+// controllers
+const productsController = require('../controllers/product');
 
 
-router.get('/', (req, res, next) => {
-	const products = adminData.products;
-
-	// the join method construct the files system path so it can work in linux or in windows sistems
-	res.render('shop', { products, pageTitle: 'Shop', path: '/' });
-})
+router.get('/', productsController.getProducts);
 
 exports.routes = router;
