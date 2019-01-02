@@ -18,8 +18,12 @@ exports.getProducts = (req, res, next) => {
 }
 
 exports.postAddProduct = (req, res, next) => {
-	// const img = "https://fakeimg.pl/350x200/?text=".concat(req.body.title);
-	const product = new Product(req.body.title);
+	const title = req.body.title;
+	const imgUrl = req.body.imgUrl;
+	const price = req.body.price;
+	const description = req.body.description;
+
+	const product = new Product(title, imgUrl, price, description);
 	product.save();
 	res.redirect('/');
 }

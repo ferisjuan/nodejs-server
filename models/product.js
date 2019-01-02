@@ -4,8 +4,11 @@ const path = require('path');
 const p = path.join(path.dirname(process.mainModule.filename), 'data', 'products.json');
 
 module.exports = class Product {
-	constructor(title) {
+	constructor(title, imgUrl, description, price) {
 		this.title = title;
+		this.imgUrl = imgUrl;
+		this.description = description;
+		this.price = price;
 	}
 
 	save() {
